@@ -19,4 +19,4 @@ $ curl http://localhost:9879/stage
 
     Crawling Completed
 
-5.  To get more information about the domain under investigation, please hit curl http://localhost:9879/url/desc
+5.  To get more information about the domain under investigation, after crawling is completed,  please hit curl http://localhost:9879/url/desc
