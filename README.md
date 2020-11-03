@@ -39,7 +39,7 @@ $ curl http://localhost:9879/stage
 
 6. Crawler should be running continuously and always fetching fresh content. That would be incorporated with more time at hand.
 
-
+7. Changes in the World wide web are coming at a breathtaking pace, at this rate the, new technologies give rise to new web components, our crawler should be able to handle all of that and should have a vision to have more in the future, this entails a evolving architecture for the crawler, so as newer things appearing on the horizon could be easily blended in the existing scheme of things. This means that the web crawler should be modular so as to newer things could easily fitted into it. So modularity of design would be incorporated.
 
 
  
