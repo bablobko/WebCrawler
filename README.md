@@ -35,7 +35,7 @@ $ curl http://localhost:9879/stage
 
 4. No effort has been made in the submitted code for circumventing the spider traps. Given more time I would have certainly incorporated that in my crawler.
 
-5. The design should be more scalable by adding more bandwidth and more machines to jack up the carwling rate.
+5. The design should be more scalable by adding more bandwidth and more machines we should be able to jack up the carwling rate.
 
 6. Crawler should be running continuously and always fetching fresh content. That would be incorporated with more time at hand.
 
