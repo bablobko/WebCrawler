@@ -23,3 +23,23 @@ $ curl http://localhost:9879/stage
     Crawling Completed
 
 5.  To get more information about the domain under investigation, after crawling is completed,  please hit curl http://localhost:9879/url/desc
+
+
+# Further Changes
+
+1. If given a chance to further develop this, I would make it more distributed and more multithreaded, using join to combine the result from various threads and return back the final result.
+
+2. The Frontier containing the URL would be a more elaborate datastructure with several components of various data structures like queue, priority queue and several other required things.
+
+3. robot.txt would be incorporated so as to skip the urls from crawling procedure. That would have added to the politeness of the crawler.
+
+4. No effort has been made in the submitted code for circumventing the spider traps. Given more time I would have certainly incorporated that in my crawler.
+
+5. The design should be more scalable by adding more bandwidth and more machines to jack up the carwling rate.
+
+6. Crawler should be running continuously and always fetching fresh content. That would be incorporated with more time at hand.
+
+
+
+
+ 
