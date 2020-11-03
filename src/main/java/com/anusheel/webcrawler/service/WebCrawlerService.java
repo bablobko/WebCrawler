@@ -112,11 +112,10 @@ public class WebCrawlerService {
 	}
 
 	public boolean getStatus() {
-		if (urlFrontier.size() != 0) {
-			return false;
-		}else if(urlFrontier.size() == 0) {
-		    return true;
+		if (urlFrontier.size() == 0) {
+			return true;
+		}else{
+		    return false;
 		}
-		return false;
 	}
 }
