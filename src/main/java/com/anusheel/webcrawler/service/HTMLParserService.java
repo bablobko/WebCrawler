@@ -46,4 +46,14 @@ public class HTMLParserService {
 		return this.urlTitleMapList;
 	}
 
+
+	public UrlTitleMapList getEmptyUrlListMap() {
+		UrlTitleMap urlTitleMap = new UrlTitleMap();
+		urlTitleMap.setTitle("Crawling Not Completed");
+		urlTitleMap.setUrl("No URL as crawling has not completed");
+		UrlTitleMapList urlTitleMapList = new UrlTitleMapList();
+		urlTitleMapList.add(urlTitleMap);
+		return urlTitleMapList;
+	}
+
 }

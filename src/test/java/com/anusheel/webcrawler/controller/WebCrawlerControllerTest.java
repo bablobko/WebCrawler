@@ -3,6 +3,8 @@ package com.anusheel.webcrawler.controller;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,8 +82,11 @@ class WebCrawlerControllerTest {
 		urlTitleMap.setTitle("Don't be evil.");
 		UrlTitleMapList urlListMap = new UrlTitleMapList();
 		urlListMap.add(urlTitleMap);
+		when(webCrawlerService.crawlingCompletedStatus()).thenReturn(true);
 		when(htmlParserService.getUrlListMap()).thenReturn(urlListMap);
 		UrlTitleMapList mapList = webCrawlerController.sendSiteDesc();
+		verify(webCrawlerService, times(1)).crawlingCompletedStatus();
+		verify(htmlParserService, times(1)).getUrlListMap();
 		assertNotNull(mapList, "Site Description should not be null.");
 		String actual = "Don't be evil.";
 		assertEquals(actual, mapList.getUrlTitleMapList().get(0).getTitle());
@@ -89,6 +94,24 @@ class WebCrawlerControllerTest {
 		assertEquals(actual, mapList.getUrlTitleMapList().get(0).getUrl());
 	}
 	
+	@Test
+	void testSendSiteDescForIncompleteCompletionStatus() {
+		UrlTitleMap urlTitleMap = new UrlTitleMap();
+		urlTitleMap.setTitle("Crawling Not Completed");
+		urlTitleMap.setUrl("No URL as crawling has not completed");
+		UrlTitleMapList urlTitleMapList = new UrlTitleMapList();
+		urlTitleMapList.add(urlTitleMap);
+		when(webCrawlerService.crawlingCompletedStatus()).thenReturn(false);
+		when(htmlParserService.getEmptyUrlListMap()).thenReturn(urlTitleMapList);
+		UrlTitleMapList mapList = webCrawlerController.sendSiteDesc();
+		verify(webCrawlerService, times(1)).crawlingCompletedStatus();
+		verify(htmlParserService, times(1)).getEmptyUrlListMap();
+		assertNotNull(mapList, "Site Description should not be null.");
+		String actual = "Crawling Not Completed";
+		assertEquals(actual, mapList.getUrlTitleMapList().get(0).getTitle());
+		actual = "No URL as crawling has not completed";
+		assertEquals(actual, mapList.getUrlTitleMapList().get(0).getUrl());
+	}
 	
 
 }

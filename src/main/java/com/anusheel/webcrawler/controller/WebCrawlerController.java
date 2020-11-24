@@ -75,8 +75,11 @@ public class WebCrawlerController {
 	@GetMapping("/url/desc")
 	public UrlTitleMapList sendSiteDesc() {
 		log.info("sendSiteDesc method has been hit.");
-		//if crawl process completed.
-		return htmlParserService.getUrlListMap();
+		if(webCrawlerService.crawlingCompletedStatus()) {
+		    return htmlParserService.getUrlListMap();
+		}else {
+			return htmlParserService.getEmptyUrlListMap();
+		}
 	}
 	
 	@GetMapping("/stage")
