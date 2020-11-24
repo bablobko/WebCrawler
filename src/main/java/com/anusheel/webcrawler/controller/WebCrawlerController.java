@@ -52,7 +52,6 @@ public class WebCrawlerController {
 		Boolean val = null;
 		URI location = null;
 		log.info("The seedUrl method got hit " + seedUrl);
-		
 		try {
  		   val = seedUrlRepository.add(seedUrl);
 		}catch(InterruptedException ie) {

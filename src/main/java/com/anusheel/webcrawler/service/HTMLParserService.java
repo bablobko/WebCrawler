@@ -55,5 +55,9 @@ public class HTMLParserService {
 		urlTitleMapList.add(urlTitleMap);
 		return urlTitleMapList;
 	}
+	
+	public void clearUrlListMap() {
+		urlTitleMapList.clearList();
+	}
 
 }

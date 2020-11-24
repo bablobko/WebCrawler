@@ -10,7 +10,9 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.anusheel.webcrawler.data.UrlTitleMapList;
 import com.anusheel.webcrawler.request.SeedUrlRequest;
+import com.anusheel.webcrawler.service.HTMLParserService;
 import com.anusheel.webcrawler.service.WebCrawlerService;
 import com.anusheel.webcrawler.utils.UrlUtils;
 
@@ -25,6 +27,9 @@ public class SeedURLRepository {
 
 	@Autowired
 	WebCrawlerService crawlerService;
+	
+	@Autowired
+	HTMLParserService htmlParserService; 
 
 	public SeedURLRepository() {
 		super();
@@ -34,6 +39,7 @@ public class SeedURLRepository {
 	public boolean add(SeedUrlRequest seedUrl) throws InterruptedException {
 		if (UrlUtils.isValidUrl(seedUrl.getUrl())) {
 			urlList = addUrl(urlList, seedUrl.getUrl());
+			htmlParserService.clearUrlListMap();
 			CompletableFuture<Boolean> crawlingStarted = crawlerService.crawl(seedUrl.getUrl());
 			return true;
 		} else {

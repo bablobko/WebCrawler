@@ -40,5 +40,11 @@ public class UrlTitleMapList {
 	public boolean add(UrlTitleMap urlTitleMap) {
 		return this.urlTitleMapList.add(urlTitleMap);
 	}
+	
+	public void clearList() {
+		this.urlTitleMapList.clear();
+	}
+	
+	
 
 }

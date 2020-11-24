@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doAnswer;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -13,14 +14,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 
+import com.anusheel.webcrawler.data.UrlTitleMapList;
 import com.anusheel.webcrawler.request.SeedUrlRequest;
+import com.anusheel.webcrawler.service.HTMLParserService;
 import com.anusheel.webcrawler.service.WebCrawlerService;
 
 class SeedURLRepositoryTest {
 	
 	@Mock
 	private WebCrawlerService crawlerService;
+	
+	@Mock
+	private HTMLParserService htmlParserService;
 		
 	@InjectMocks
 	private SeedURLRepository seedUrlRepository;
@@ -39,6 +46,7 @@ class SeedURLRepositoryTest {
 		try {
 			when(crawlerService.crawl(url)).thenReturn(CompletableFuture.completedFuture(true));
 			actual = seedUrlRepository.add(seedUrl);
+			verify(htmlParserService, times(1)).clearUrlListMap();
 			verify(crawlerService, times(1)).crawl(url);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
