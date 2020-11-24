@@ -4,7 +4,7 @@
 package com.anusheel.webcrawler.data;
 
 /**
- * @author Lenovo
+ * @author anusheel
  *
  */
 public class HtmlParseData {
