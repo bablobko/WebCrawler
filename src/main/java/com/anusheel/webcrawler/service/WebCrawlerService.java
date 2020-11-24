@@ -111,9 +111,9 @@ public class WebCrawlerService {
 
 	}
 
-	public boolean getStatus() {
+	public boolean crawlingCompletedStatus() {
 		if (urlFrontier.size() == 0) {
-			return true;
+			return true; 
 		}else{
 		    return false;
 		}

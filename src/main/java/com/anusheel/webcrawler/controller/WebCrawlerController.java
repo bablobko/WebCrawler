@@ -3,6 +3,9 @@
  */
 package com.anusheel.webcrawler.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -44,20 +47,29 @@ public class WebCrawlerController {
 		return ResponseEntity.ok("<h1> Hello World</h1>");
 	}
 	
-	@GetMapping("/urls")
-	public ResponseEntity<?> helloWorld(){
-		return new ResponseEntity<>(HttpStatus.ACCEPTED).ok("<h1>Hello World From the second get method</h1>");
-	}
-	
 	@PostMapping("/urls")
 	public ResponseEntity<?> seedUrl(@Valid @RequestBody SeedUrlRequest seedUrl) {
+		Boolean val = null;
+		URI location = null;
 		log.info("The seedUrl method got hit " + seedUrl);
+		
 		try {
- 		   seedUrlRepository.add(seedUrl);
+ 		   val = seedUrlRepository.add(seedUrl);
 		}catch(InterruptedException ie) {
 			ie.printStackTrace();
 		}
-		return new ResponseEntity<String>(HttpStatus.CREATED).ok("Crawl Resource created successfully.\nPlease wait a while the operation completes.\nSite description will be available at /url/desc");
+		if(val!= null && val == true) {
+			try {
+				location = new URI("http://localhost/url/desc");
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+		    return ResponseEntity.created(location).body("Crawl Resource created successfully.\nPlease wait a while the operation completes.\nSite description will be available at /url/desc");
+		}
+		else {
+			return ResponseEntity.unprocessableEntity().body("Crawl Resource Cannot Be Created. Please Kindly supply valid URL");
+		}
+			
 	}
 	
 	@GetMapping("/url/desc")
@@ -68,11 +80,12 @@ public class WebCrawlerController {
 	}
 	
 	@GetMapping("/stage")
-	public String crawlerCompletionStage() {
-		if(webCrawlerService.getStatus()) {
-			return "Crawling Completed";
+	public ResponseEntity<?> crawlerCompletionStage() {
+		log.info("crawlerCompletionStage method has been hit.");
+		if(webCrawlerService.crawlingCompletedStatus()) {
+			return ResponseEntity.status(HttpStatus.SEE_OTHER).body("Crawling Completed");
 		}else {
-			return "Crawling in progress";
+			return ResponseEntity.accepted().body("Crawling In Progress.");
 		}
 	}
 

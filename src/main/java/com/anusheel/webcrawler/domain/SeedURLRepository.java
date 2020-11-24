@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.anusheel.webcrawler.request.SeedUrlRequest;
 import com.anusheel.webcrawler.service.WebCrawlerService;
+import com.anusheel.webcrawler.utils.UrlUtils;
 
 /**
  * 
@@ -19,31 +20,32 @@ import com.anusheel.webcrawler.service.WebCrawlerService;
  */
 @Repository
 public class SeedURLRepository {
-	
+
 	private List<String> urlList;
-	
+
 	@Autowired
 	WebCrawlerService crawlerService;
-	
-	
 
 	public SeedURLRepository() {
 		super();
 		urlList = new ArrayList<>();
 	}
-	
 
-	public void add(SeedUrlRequest seedUrl) throws InterruptedException {
-		urlList = addUrl(urlList, seedUrl.getUrl());
-		CompletableFuture<Boolean> crawlingStarted = crawlerService.crawl(seedUrl.getUrl());
+	public boolean add(SeedUrlRequest seedUrl) throws InterruptedException {
+		if (UrlUtils.isValidUrl(seedUrl.getUrl())) {
+			urlList = addUrl(urlList, seedUrl.getUrl());
+			CompletableFuture<Boolean> crawlingStarted = crawlerService.crawl(seedUrl.getUrl());
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private List<String> addUrl(List<String> urlList, String url) {
-		if(url != null && !urlList.contains(url)) {
+		if (url != null && !urlList.contains(url)) {
 			urlList.add(url);
 		}
 		return urlList;
 	}
-	
 
 }
