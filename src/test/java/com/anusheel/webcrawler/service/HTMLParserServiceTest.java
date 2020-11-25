@@ -1,6 +1,10 @@
 package com.anusheel.webcrawler.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doAnswer;
 
 import java.util.List;
 
@@ -34,6 +38,16 @@ class HTMLParserServiceTest {
 		urlTitleMapList.add(urlTitleMap);
 		htmlParserService.clearUrlListMap();
 		List<UrlTitleMap> urlTitleMapListVal = urlTitleMapList.getUrlTitleMapList();
+		assertNotNull(urlTitleMapListVal);
+		assertEquals(0, urlTitleMapListVal.size());
+	}
+
+	@Test
+	void testClearUrlListMapForAlreadyEmpty() {
+		when(urlTitleMapList.getUrlTitleMapList()).thenReturn(new UrlTitleMapList().getUrlTitleMapList());
+		htmlParserService.clearUrlListMap();
+		List<UrlTitleMap> urlTitleMapListVal = urlTitleMapList.getUrlTitleMapList();
+		verify(urlTitleMapList, times(1)).clearList();
 		assertNotNull(urlTitleMapListVal);
 		assertEquals(0, urlTitleMapListVal.size());
 	}
