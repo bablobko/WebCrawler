@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,10 +52,5 @@ class WebCrawlerServiceTest {
     	assertNotNull(crawlingCompletedStatus, "The crawling completion status is not null.");
     	boolean actual = false; 
     	assertEquals(actual, crawlingCompletedStatus);
-    }
-    
-    @Test
-    void testCrawl() {
-    	
     }
 }

@@ -31,10 +31,10 @@ public class WebCrawlerService {
 	private static final Logger log = LoggerFactory.getLogger(WebCrawlerService.class);
 
 	@Autowired
-	HTMLParserService htmlParserService;
+	private HTMLParserService htmlParserService;
 
 	@Autowired
-	Frontier urlFrontier;
+	private Frontier urlFrontier;
 
 	private CompletableFuture<Boolean> crawlerCompletionStatus = null;
 

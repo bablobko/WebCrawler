@@ -26,10 +26,10 @@ public class SeedURLRepository {
 	private List<String> urlList;
 
 	@Autowired
-	WebCrawlerService crawlerService;
+	private WebCrawlerService crawlerService;
 	
 	@Autowired
-	HTMLParserService htmlParserService; 
+	private HTMLParserService htmlParserService; 
 
 	public SeedURLRepository() {
 		super();
