@@ -18,12 +18,12 @@ import com.anusheel.webcrawler.data.UrlTitleMap;
 import com.anusheel.webcrawler.data.UrlTitleMapList;
 
 class HTMLParserServiceTest {
-	
+
 	@Mock
 	private UrlTitleMapList urlTitleMapList;
-	
+
 	@InjectMocks
-	private HTMLParserService htmlParserService;  
+	private HTMLParserService htmlParserService;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -50,6 +50,21 @@ class HTMLParserServiceTest {
 		verify(urlTitleMapList, times(1)).clearList();
 		assertNotNull(urlTitleMapListVal);
 		assertEquals(0, urlTitleMapListVal.size());
+	}
+
+	@Test
+	void testGetUrlListMap() {
+		UrlTitleMap urlTitleMap = new UrlTitleMap();
+		urlTitleMap.setTitle("My Page");
+		urlTitleMap.setUrl("http://www.mypage.com");
+		UrlTitleMapList urlMapList = new UrlTitleMapList();
+		urlMapList.add(urlTitleMap);
+		when(urlTitleMapList.getUrlTitleMapList()).thenReturn(urlMapList.getUrlTitleMapList());
+		UrlTitleMapList urlListMap = htmlParserService.getUrlListMap();
+		assertNotNull(urlListMap);
+		assertEquals(1, urlListMap.getUrlTitleMapList().size());
+		assertEquals("My Page", urlListMap.getUrlTitleMapList().get(0).getTitle());
+		assertEquals("http://www.mypage.com", urlListMap.getUrlTitleMapList().get(0).getUrl());
 	}
 
 }
